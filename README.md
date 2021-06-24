@@ -5,11 +5,11 @@
 这里对比一下它们的差异。
 
 
-在LCQMC数据集上的PC曲线和ROC曲线（1）：
+在LCQMC数据集上的PR曲线和ROC曲线（1）：
 
 ![](asset/ts1.png)
 
-在LCQMC数据集上的PC曲线和ROC曲线（2）：
+在LCQMC数据集上的PR曲线和ROC曲线（2）：
 
 ![](asset/ts1.1.png)
 
