@@ -9,7 +9,7 @@
 
 ![](asset/ts1.png)
 
-由于wasserstein distance计算太慢了，一下对比只用了1000个样本：
+由于wasserstein distance计算太慢了，以下对比只用了1000个样本：
 
 ![](asset/ts2.png)
 
