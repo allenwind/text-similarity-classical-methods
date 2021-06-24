@@ -5,9 +5,13 @@
 这里对比一下它们的差异。
 
 
-在LCQMC数据集上的PC曲线和ROC曲线：
+在LCQMC数据集上的PC曲线和ROC曲线（1）：
 
 ![](asset/ts1.png)
+
+在LCQMC数据集上的PC曲线和ROC曲线（2）：
+
+![](asset/ts1.1.png)
 
 由于wasserstein distance计算太慢了，以下对比只用了1000个样本：
 
