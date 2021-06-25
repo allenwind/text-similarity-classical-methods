@@ -26,6 +26,10 @@ def cosine(v1, v2):
         return 0
     return s
 
+def normalize(x):
+    x = np.array(x)
+    return (x - np.min(x)) / (np.max(x) - np.min(x))
+
 def cosine_similar(text1, text2):
     words1 = jieba.lcut(text1)
     words2 = jieba.lcut(text2)
@@ -57,6 +61,7 @@ def tfidf_similar(text1, text2):
     return cosine(v1, v2)
 
 def bm25_similar(text1, text2, s_avg=10, k1=2.0, b=0.75):
+    """s_avg是句子的平均长度，根据语料统计。k1,b是调节因子，根据经验调整。"""
     bm25 = 0.0
     sl = len(text2)
     for w in jieba.lcut(text1):
@@ -124,7 +129,7 @@ if __name__ == "__main__":
 
     # funcs.append(word_mover_similar)
     # 注意word_mover_similar计算太慢了，这里默认不加入
-
+    do_normalize = True
     X1, X2, y, categoricals = dataset.load_lcqmc()
     ys_true = []
     ys_pred = []
@@ -132,10 +137,11 @@ if __name__ == "__main__":
     for func in funcs:
         labels.append(func.__name__)
         y_pred = [func(x1, x2) for x1, x2 in zip(X1, X2)]
+        if do_normalize:
+            y_pred = normalize(y_pred)
         ys_true.append(np.array(y))
         ys_pred.append(np.array(y_pred))
     plt.subplot(121)
     plot_pcs(ys_true, ys_pred, labels, show=False)
     plt.subplot(122)
     plot_rocs(ys_true, ys_pred, labels, show=True)
-

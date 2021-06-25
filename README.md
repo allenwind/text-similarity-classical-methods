@@ -5,16 +5,20 @@
 这里对比一下它们的差异。
 
 
-在LCQMC数据集上的PR曲线和ROC曲线（1）：
+在LCQMC数据集上的PR曲线和ROC曲线（测试1）：
 
 ![](asset/ts1.png)
 
-在LCQMC数据集上的PR曲线和ROC曲线（2）：
+在LCQMC数据集上的PR曲线和ROC曲线（测试2）：
 
-![](asset/ts1.1.png)
+![](asset/ts2.png)
+
+在LCQMC数据集上的PR曲线和ROC曲线（测试3）：
+
+![](asset/ts3.png)
 
 由于wasserstein distance计算太慢了，以下对比只用了1000个样本：
 
-![](asset/ts2.png)
+![](asset/ts4.png)
 
 可以说，这些经典的方法还是有不错的效果。
