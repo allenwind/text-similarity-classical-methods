@@ -7,6 +7,7 @@ from gensim.models import Word2Vec
 import matplotlib.pyplot as plt
 from scipy.spatial import distance
 
+from snippets import longest_common_subsequence
 from snippets import min_edit_distance
 from snippets import wasserstein_distance
 
@@ -91,6 +92,10 @@ def word_mover_similar(text1, text2):
     C = np.sqrt(np.mean(np.square(x[:,None] - y[None,:]), axis=2))
     return 1 - wasserstein_distance(p, q, C)
 
+def lcs_similar(text1, text2):
+    *_, distance = longest_common_subsequence(text1, text2)
+    return distance / max(len(text1), len(text2))
+
 def plot_pcs(ys_true, ys_pred, labels, show=True):
     for y_true, y_pred, label in zip(ys_true, ys_pred, labels):
         precision, recall, threshold = metrics.precision_recall_curve(y_true, y_pred)
@@ -125,12 +130,12 @@ def plot_rocs(ys_true, ys_pred, labels, show=True):
 if __name__ == "__main__":
     import dataset
     funcs = [cosine_similar, idf_weighted_sum_similar, jaccard_similar, 
-             tfidf_similar, bm25_similar, min_editdistance_similar]
+             tfidf_similar, bm25_similar, min_editdistance_similar, lcs_similar]
 
     # funcs.append(word_mover_similar)
     # 注意word_mover_similar计算太慢了，这里默认不加入
     do_normalize = True
-    X1, X2, y, categoricals = dataset.load_lcqmc()
+    X1, X2, y, categoricals = dataset.load_lcqmc(nums=1000)
     ys_true = []
     ys_pred = []
     labels = []

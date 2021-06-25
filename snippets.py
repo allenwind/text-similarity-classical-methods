@@ -1,6 +1,41 @@
 import numpy as np
 from scipy import optimize
 
+def longest_common_subsequence(text1, text2):
+    """最长公共子序列"""
+    n = len(text1)
+    m = len(text2)
+    maxlen = 0
+    spans1 = []
+    spans2 = []
+    if n * m == 0:
+        return spans1, spans2, maxlen
+
+    dp = np.zeros((n+1, m+1), dtype=np.int32)
+    for i in range(1, n+1):
+        for j in range(1, m+1):
+            if text1[i-1] == text2[j-1]:
+                dp[i][j] = dp[i-1][j-1] + 1
+            else:
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+    maxlen = dp[-1][-1]
+
+    i = n - 1
+    j = m - 1
+    while len(spans1) < maxlen:
+        if text1[i] == text2[j]:
+            spans1.append(i)
+            spans2.append(j)
+            i -= 1
+            j -= 1
+        elif dp[i+1, j] > dp[i,j+1]:
+            j -= 1
+        else:
+            i -= 1
+    spans1 = spans1[::-1]
+    spans2 = spans2[::-1]
+    return spans1, spans2, maxlen
+
 def min_edit_distance(text1, text2):
     """Levenshtein distance"""
     n = len(text1)
