@@ -8,6 +8,7 @@ import matplotlib.pyplot as plt
 from scipy.spatial import distance
 
 from snippets import longest_common_subsequence
+from snippets import longest_common_substring
 from snippets import min_edit_distance
 from snippets import wasserstein_distance
 
@@ -73,6 +74,7 @@ def bm25_similar(text1, text2, s_avg=10, k1=2.0, b=0.75):
     return bm25
 
 def min_editdistance_similar(text1, text2):
+    """根据编辑距离的归一化值作为相似性度量"""
     distance = min_edit_distance(text1, text2)
     return 1 - distance / max(len(text1), len(text2))
 
@@ -93,8 +95,14 @@ def word_mover_similar(text1, text2):
     return 1 - wasserstein_distance(p, q, C)
 
 def lcs_similar(text1, text2):
+    """根据最长公共子序列的归一化值作为相似性度量"""
     *_, distance = longest_common_subsequence(text1, text2)
     return distance / max(len(text1), len(text2))
+
+def lcsubstring_similar(text1, text2):
+    """根据最长公共子串的归一化值作为相似性度量"""
+    *_, distance = longest_common_substring(text1, text2)
+    return distance / min(len(text1), len(text2))
 
 def plot_pcs(ys_true, ys_pred, labels, show=True):
     for y_true, y_pred, label in zip(ys_true, ys_pred, labels):
@@ -130,12 +138,13 @@ def plot_rocs(ys_true, ys_pred, labels, show=True):
 if __name__ == "__main__":
     import dataset
     funcs = [cosine_similar, idf_weighted_sum_similar, jaccard_similar, 
-             tfidf_similar, bm25_similar, min_editdistance_similar, lcs_similar]
+             tfidf_similar, bm25_similar, min_editdistance_similar,
+             lcs_similar, lcsubstring_similar]
 
-    # funcs.append(word_mover_similar)
     # 注意word_mover_similar计算太慢了，这里默认不加入
+    # funcs.append(word_mover_similar)
     do_normalize = True
-    X1, X2, y, categoricals = dataset.load_lcqmc(nums=1000)
+    X1, X2, y, categoricals = dataset.load_lcqmc(nums=10000)
     ys_true = []
     ys_pred = []
     labels = []

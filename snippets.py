@@ -1,6 +1,27 @@
 import numpy as np
 from scipy import optimize
 
+def longest_common_substring(text1, text2):
+    """最长公共子字符串，区分大小写"""
+    n = len(text1)
+    m = len(text2)
+    maxlen = 0
+    span1 = (0, 0)
+    span2 = (0, 0)
+    if n * m == 0:
+        return span1, span2, maxlen
+
+    dp = np.zeros((n+1, m+1), dtype=np.int32)
+    for i in range(1, n+1):
+        for j in range(1, m+1):
+            if text1[i-1] == text2[j-1]:
+                dp[i][j] = dp[i-1][j-1] + 1
+                if dp[i][j] > maxlen:
+                    maxlen = dp[i][j]
+                    span1 = (i - maxlen, i)
+                    span2 = (j - maxlen, j)       
+    return span1, span2, maxlen
+
 def longest_common_subsequence(text1, text2):
     """最长公共子序列"""
     n = len(text1)

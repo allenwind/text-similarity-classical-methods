@@ -1,6 +1,6 @@
 # text-similarity-classical-methods
 
-文本匹配中有很多经典的方法：cosine_similar、idf_weighted_sum_similar、jaccard_similar、bm25_similar、tfidf_similar、min_editdistance_similar、word_mover_similar等等，详细可参看源码。
+文本匹配中有很多经典的方法：cosine_similar、idf_weighted_sum_similar、jaccard_similar、bm25_similar、tfidf_similar、min_editdistance_similar、word_mover_similar、lcs_similar、longest_common_substring_similar等等，详细可参看源码。
 
 这里对比一下它们的差异。
 
