@@ -54,6 +54,18 @@ def jaccard_similar(text1, text2):
     s2 = set(words2)
     return len(s1.intersection(s2)) / len(s1.union(s2))
 
+def weighted_jaccard_similar(text1, text2):
+    """使用idf进行词汇加权的jaccard_similar"""
+    words1 = jieba.lcut(text1)
+    words2 = jieba.lcut(text2)
+    s1 = set(words1)
+    s2 = set(words2)
+    a = s1.intersection(s2)
+    b = s1.union(s2)
+    al = np.array([idf_dict.get(w, 1) for w in a]).sum(axis=0)
+    bl = np.array([idf_dict.get(w, 1) for w in b]).sum(axis=0)
+    return al / bl
+
 def tfidf_similar(text1, text2):
     words1 = jieba.lcut(text1)
     words2 = jieba.lcut(text2)
@@ -139,7 +151,7 @@ if __name__ == "__main__":
     import dataset
     funcs = [cosine_similar, idf_weighted_sum_similar, jaccard_similar, 
              tfidf_similar, bm25_similar, min_editdistance_similar,
-             lcs_similar, lcsubstring_similar]
+             lcs_similar, lcsubstring_similar, weighted_jaccard_similar]
 
     # 注意word_mover_similar计算太慢了，这里默认不加入
     # funcs.append(word_mover_similar)
