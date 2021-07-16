@@ -11,6 +11,7 @@
 - word_mover_similar
 - lcs_similar
 - longest_common_substring_similar
+- cqr_ctr_similar
 
 等等，详细可参看源码。这里对比一下它们的差异。需要注意，选择的词向量、分词算法（工具）需要和数据集匹配，才能有较好的效果。
 
