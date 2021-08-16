@@ -85,8 +85,10 @@ def bm25_similar(text1, text2, s_avg=10, k1=2.0, b=0.75):
     """s_avg是句子的平均长度，根据语料统计。k1,b是调节因子，根据经验调整。"""
     bm25 = 0.0
     sl = len(text2)
+    # 计算text1中每个词与text2的相关度得分并累加得s1与s2的相关度
     for w in jieba.lcut(text1):
         w_idf = idf_dict.get(w, 1)
+        # 计算text1:query中各词与候选文档text2的相关性得分
         bm25_ra = text2.count(w) * (k1 + 1)
         bm25_rb = text2.count(w) + k1 * (1 - b + b * sl / s_avg)
         bm25 += w_idf * bm25_ra / bm25_rb
