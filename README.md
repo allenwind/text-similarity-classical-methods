@@ -1,6 +1,14 @@
 # text-similarity-classical-methods
 
-文本匹配中有很多经典的方法：
+从表征的角度看，文本匹配方法可以分为三类：
+
+- 基于文本字符的直接匹配
+- 基于词向量序列的匹配
+- 基于词向量序列所构造的句向量的匹配
+
+
+
+于是文本匹配衍生很多经典的方法：
 - cosine_similar
 - idf_weighted_sum_similar
 - jaccard_similar
